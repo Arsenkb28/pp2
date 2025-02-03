@@ -7,13 +7,17 @@ def check(name = "Love"):
 
 print(check())
 
+from Dict_of_movies import movies
+def sublist_above_5p5():
+    l = [i["name"] for i in movies if i["imdb"] > 5.5]
+    return l
 
-def calc_avg_imbd(movies, filter_func=None):
-  total = 0
-  if filter_func is not None:
-    movies = filter_func(movies)
-  for movie in movies:
-    total += float(movie["imdb"])
-  return total / len(movies)
+# print(sublist_above_5p5())
 
+from Dict_of_movies import movies
 
+def categories(category = "Romance"):
+    l = [i['name'] for i in movies if i['category']==category]
+    return l
+
+# print(categories())
