@@ -6,16 +6,15 @@ def check(name = "Love"):
     return l[0] > 5.5
 
 print(check())
-
-from Dict_of_movies import movies
+from payload import movies
 def sublist_above_5p5():
     l = [i["name"] for i in movies if i["imdb"] > 5.5]
     return l
 
 # print(sublist_above_5p5())
 
-from Dict_of_movies import movies
 
+from payload import movies
 def categories(category = "Romance"):
     l = [i['name'] for i in movies if i['category']==category]
     return l
