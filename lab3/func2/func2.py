@@ -1,19 +1,11 @@
 import functools
 from payload import movies
 
-def is_above(movie, score = 5.5):
-  return movie["imdb"] > score
+def check(name = "Love"):
+    l = [i["imdb"] for i in movies if i["name"]==name]
+    return l[0] > 5.5
 
-
-def filter_movies(movies, score = None, category=None):
-  res = []
-  for movie in movies:
-    if score is not None and not is_above(movie, score):
-      continue
-    if category is not None and movie["category"].lower() != category.lower():
-      continue
-    res.append(movie)
-  return res
+print(check())
 
 
 def calc_avg_imbd(movies, filter_func=None):
