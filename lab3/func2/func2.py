@@ -1,6 +1,5 @@
 import functools
-import functions2_payload as payload
-
+from payload import movies
 
 def is_above(movie, score = 5.5):
   return movie["imdb"] > score
