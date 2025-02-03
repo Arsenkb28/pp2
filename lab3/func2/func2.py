@@ -25,7 +25,3 @@ def calc_avg_imbd(movies, filter_func=None):
   return total / len(movies)
 
 
-if __name__ == "__main__":
-  print(filter_movies(payload.movies, score=5.5, category="Romance"))
-  print(calc_avg_imbd(filter_movies(payload.movies, score=5.5, category="Romance")))
-  print(calc_avg_imbd(payload.movies, filter_func=functools.partial(filter_movies, score=5.5, category="romance")))
