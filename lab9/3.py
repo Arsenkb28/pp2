@@ -220,5 +220,5 @@ while run:
         # Update the display
         pygame.display.flip()
 
-# Quit pygame
+# Quit pygame1
 pygame.quit()
