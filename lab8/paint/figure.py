@@ -109,7 +109,7 @@ class FIGURE:
 
     def draw_figure(self, surf, color):
         if self.type == 'rectangle':
-            # pygame.draw.rect(surf, color, self.rect, self.border_size)
+            # pygames.draw.rect(surf, color, self.rect, self.border_size)
             # print('x: 12', self.x, 'y:', self.y, 'w:',self.w, 'h:',self.h, 'width:',self.border_size)
             pygame.draw.rect(surf, color, (self.x, self.y, self.w, self.h), self.border_size)
         if self.type == 'circle':

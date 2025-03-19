@@ -1,90 +1,48 @@
 import pygame
-import sys
-
-WIDTH = 800
-HEIGHT = 600
-CX = WIDTH // 2
-CY = HEIGHT // 2
-FPS = 30
+import os
 
 pygame.init()
 pygame.mixer.init()
-pygame.display.set_caption("MP3 Player")
 
-DISPLAYSURF = pygame.display.set_mode((WIDTH, HEIGHT))
-Frame = pygame.time.Clock()
+music_dir = r"C:\Users\admin\PycharmProjects\pp2\lab7\musica"  # folder with musics
+songs = [f for f in os.listdir(music_dir) if f.endswith(".mp3")]
+idx = 0  # current song
 
-is_paused = True
-cur_index = 0
-cur_music_path = ""
-music_paths = [
-    "BillyIDol.mp3",
-    "The Potenzas - Dirty Dish (Official Audio).mp3"
-]
+img = pygame.image.load('img.png')
+W, H = img.get_size()
+screen = pygame.display.set_mode((W, H))
+pygame.display.set_caption("Music Player")
 
-def get_music_name(music_path):
-    return music_path.split("/")[-1].split(".")[0]
 
-def play(music_path):
-    global cur_music_path
-    if music_path == cur_music_path:
-        pygame.mixer.music.unpause()
-    else:
-        cur_music_path = music_path
-        pygame.mixer.music.load(music_path)
-        pygame.mixer.music.set_volume(.2)
-        pygame.mixer.music.play(-1)
+def play_song():  # to play
+    pygame.mixer.music.load(os.path.join(music_dir, songs[idx]))
+    pygame.mixer.music.play()
 
-def stop_music():
-    pygame.mixer.music.pause()
 
-prevHintFont = pygame.font.Font(None, 30)
-prevHintImg = prevHintFont.render("Press LEFT ARROW to switch back", True, (255, 255, 255))
+if songs:
+    play_song()
 
-curMusicFont = pygame.font.Font(None, 30)
-
-nextHintFont = pygame.font.Font(None, 30)
-nextHintImg = nextHintFont.render("Press RIGHT ARROW to switch forward", True, (255, 255, 255))
-
-running = True
-while running:
+run = True
+while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            run = False
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                cur_index = (cur_index + 1) % len(music_paths)
-                if not is_paused:
-                    play(music_paths[cur_index])
-            elif event.key == pygame.K_LEFT:
-                cur_index = (cur_index - 1) % len(music_paths)
-                if not is_paused:
-                    play(music_paths[cur_index])
-            elif event.key == pygame.K_SPACE:
-                if is_paused:
-                    is_paused = False
-                    play(music_paths[cur_index])
+            if event.key == pygame.K_SPACE:  # pause or play -> space
+                if pygame.mixer.music.get_busy():
+                    pygame.mixer.music.pause()
                 else:
-                    is_paused = True
-                    stop_music()
+                    pygame.mixer.music.unpause()
+            elif event.key == pygame.K_s:  # stop -> S
+                pygame.mixer.music.stop()
+            elif event.key == pygame.K_RIGHT:  # next
+                idx = (idx + 1) % len(songs)
+                play_song()
+            elif event.key == pygame.K_LEFT:  # previous
+                idx = (idx - 1) % len(songs)
+                play_song()
 
-    curMusicFontImg1 = curMusicFont.render(
-        f"Currently playing \"{get_music_name(music_paths[cur_index])}\"",
-        True, (255, 255, 255)
-    )
-    curMusicFontImg2 = curMusicFont.render(
-        "Paused" if is_paused else "",
-        True, (255, 255, 255)
-    )
-
-    DISPLAYSURF.fill((0, 0, 0))
-    DISPLAYSURF.blit(prevHintImg, (CX - prevHintImg.get_width() // 2 - 100, CY + 100))
-    DISPLAYSURF.blit(curMusicFontImg1, (CX - curMusicFontImg1.get_width() // 2, CY - 100))
-    DISPLAYSURF.blit(curMusicFontImg2, (CX - curMusicFontImg2.get_width() // 2, CY - 80))
-    DISPLAYSURF.blit(nextHintImg, (CX - nextHintImg.get_width() // 2 + 100, CY + 140))
-
-    pygame.display.update()
-    Frame.tick(FPS)
+    screen.blit(img, (0, 0))
+    pygame.display.flip()
 
 pygame.quit()
-sys.exit()

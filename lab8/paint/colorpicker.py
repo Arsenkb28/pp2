@@ -31,7 +31,7 @@ main_color = (255, 0, 0)
 def fill_surface(surf, current_color):
     global main_color
     font = pygame.font.SysFont('cambriamath', 20)
-    # font = pygame.font.SysFont('bahnschrift', 20)
+    # font = pygames.font.SysFont('bahnschrift', 20)
     text = font.render('Change color palette', True, color['black'])
     surf.blit(text, (5, 5))
     pygame.draw.rect(surf, color['l-gray'], (0, 35, surf.get_width(), surf.get_height() - 35))

@@ -10,7 +10,7 @@ FPS = 30
 pygame.init()
 pygame.display.set_caption("Move Circle game")
 
-DISPLAYSURF = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 Frame = pygame.time.Clock()
 
 circleImage = pygame.Surface([50, 50])
@@ -38,9 +38,9 @@ while "Mickey":
         if circleRect.y + SHIFT_PX < HEIGHT - circleRect.height:
             circleRect.y += SHIFT_PX
 
-    DISPLAYSURF.fill((0, 0, 0))
+    screen.fill((0, 0, 0))
 
-    DISPLAYSURF.blit(circleImage, (circleRect.x, circleRect.y))
+    screen.blit(circleImage, (circleRect.x, circleRect.y))
 
     pygame.display.update()
 
