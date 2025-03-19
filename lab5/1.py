@@ -29,8 +29,4 @@ if __name__ == "__main__":
   print(drop_ms(now))
   # print(second_diff(now, datetime.datetime.combine(datetime.date(2023, 1, 1), datetime.datetime.now().time())))
   # print(second_diff(now, datetime.datetime.combine(datetime.date(2025, 1, 22), datetime.datetime.now().time())))
-<<<<<<< HEAD
   #63358
-=======
-  #633
->>>>>>> 79d7c8132e25a70dba0cbda88a095322ea6d0424
