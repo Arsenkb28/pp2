@@ -48,11 +48,11 @@ DISPLAYSURF = pygame.display.set_mode((WIDTH, HEIGHT))
 Frame = pygame.time.Clock()
 
 clock_image = pygame.transform.scale(
-    pygame.image.load("Lab 07/clock.png").convert_alpha(),
+    pygame.image.load("clock.png").convert_alpha(),
     (WIDTH, HEIGHT)
 )
-min_hand_image = pygame.image.load("Lab 07/min_hand.png").convert_alpha()
-sec_hand_image = pygame.image.load("Lab 07/sec_hand.png").convert_alpha()
+min_hand_image = pygame.image.load("min_hand.png").convert_alpha()
+sec_hand_image = pygame.image.load("sec_hand.png").convert_alpha()
 
 INITIAL_MIN_HAND_ANGLE = 310
 min_hand_angle = 0
