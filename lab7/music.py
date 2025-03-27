@@ -18,8 +18,8 @@ is_paused = True
 cur_index = 0
 cur_music_path = ""
 music_paths = [
-    "Metro2033.mp3",
     "BillyIDol.mp3",
+    "The Potenzas - Dirty Dish (Official Audio).mp3"
 ]
 
 def get_music_name(music_path):

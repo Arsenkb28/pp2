@@ -55,6 +55,7 @@ min_hand_image = pygame.image.load("min_hand.png").convert_alpha()
 sec_hand_image = pygame.image.load("sec_hand.png").convert_alpha()
 
 INITIAL_MIN_HAND_ANGLE = 310
+
 min_hand_angle = 0
 INITIAL_SEC_HAND_ANGLE = 58
 sec_hand_angle = 0
@@ -64,13 +65,6 @@ while "Mickey":
         if event.type == pygame.locals.QUIT:
             pygame.quit()
             sys.exit()
-
-    # min_hand_angle = -calc_deg_from_min(
-    #   (datetime.datetime.now().minute + datetime.datetime.now().second / 60) * SPEED
-    # )
-    # sec_hand_angle = -calc_deg_from_sec(
-    #   (datetime.datetime.now().second + datetime.datetime.now().microsecond / 1000000) * SPEED
-    # )
 
     min_hand_angle = -calc_deg_from_hours(
         (datetime.datetime.now().hour + datetime.datetime.now().minute / 60) * SPEED
