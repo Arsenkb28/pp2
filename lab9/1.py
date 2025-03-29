@@ -165,5 +165,3 @@ while True:
 
     pygame.display.update()
     FramePerSec.tick(FPS)
-
-    #Framelimiter
