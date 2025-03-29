@@ -165,3 +165,4 @@ while True:
 
     pygame.display.update()
     FramePerSec.tick(FPS)
+    #for frame limit

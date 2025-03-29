@@ -222,3 +222,4 @@ while run:
 
 # Quit pygame1
 pygame.quit()
+#for frame limit
