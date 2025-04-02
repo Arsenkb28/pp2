@@ -90,3 +90,4 @@ class Colorpick:
 
 
 cp = Colorpick(5, 320, 300, 45, color['l-gray'])
+#colors

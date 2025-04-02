@@ -393,3 +393,4 @@ def update_by_Active_tool(active_tool):
 
 eraser_button = button.BUTTON(4, 4, 0, 0)
 button.fill_button(eraser_button, True)
+#colors
