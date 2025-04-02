@@ -80,3 +80,4 @@ while "Mickey":
     pygame.display.update()
 
     Frame.tick(FPS)
+    #frame forget
