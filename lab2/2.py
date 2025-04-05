@@ -73,4 +73,4 @@ One man watched the city from a rooftop,
 his cape billowing as thunder rumbled overhead.
 He was - """
 print(str2 + str1)
-#3
+#2
