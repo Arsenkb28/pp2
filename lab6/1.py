@@ -76,3 +76,4 @@ print(task8("USA IS Possibly worSeR than KazaKhstaNN"))
 print(task9("CaptialWords Meant I hope Like This: ThisIsAnExampleOfCamelCaseButAlsoCapitalWords :)"))
 
 print(task10("  I HaveThiS Camel_But Snake_case char_s_, sO gooD DDamn_. iLoveRegExGenuinely! "))
+#6
