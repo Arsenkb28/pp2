@@ -222,5 +222,3 @@ while run:
 
 # Quit pygame1
 pygame.quit()
-
-#framelimiter
