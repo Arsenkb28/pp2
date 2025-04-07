@@ -232,3 +232,4 @@ while not done:
 
     pygame.display.flip()
     clock.tick(FPS)
+    #for frame limit
