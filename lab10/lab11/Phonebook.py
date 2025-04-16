@@ -139,7 +139,7 @@ def delete():
 #main meny
 def main():
     while True:
-        print("\n📱 PhoneBook Menu:")
+        print("\nPhoneBook Menu:")
         print("1. Add contact")
         print("2. Import from CSV")
         print("3. Update name")
