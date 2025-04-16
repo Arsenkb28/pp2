@@ -62,26 +62,6 @@ def update_name():
     conn.commit()
     print("Name updated")
 
-#finding
-def search():
-    choice = input("Finding by name (1) or number (2)? ").strip()
-    if choice == "1":
-        name = input("Select name: ").strip()
-        cur.execute("SELECT * FROM phonebook WHERE name ILIKE %s", (f"%{name}%",))
-    elif choice == "2":
-        phone = input("Select number: ").strip()
-        cur.execute("SELECT * FROM phonebook WHERE phone = %s", (phone,))
-    else:
-        print("Wrong choice")
-        return
-
-    rows = cur.fetchall()
-    if rows:
-        print("Founded!")
-        for row in rows:
-            print(row)
-    else:
-        print("Nothing founded.")
 
 #deleting
 def delete():
@@ -101,7 +81,7 @@ def delete():
 #main meny
 def main():
     while True:
-        print("\n📱 PhoneBook Menu:")
+        print("\n PhoneBook Menu:")
         print("1. Add contact")
         print("2. Import from CSV")
         print("3. Update name")
