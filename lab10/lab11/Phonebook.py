@@ -23,43 +23,27 @@ cur.execute("""
 conn.commit()
 
 
-#1
-#searching by pattern
-#adding contact
-def add_contact():
-    names = []
-    phones = []
+#2 task
 
-    print("\nEnter users (type 'stop' to finish):")
-    while True:
-        name = input("Name: ").strip()
-        if name.lower() == 'stop':
-            break
+def add_or_update_contact():
+    name = input("Введите имя: ")
+    phone = input("Введите номер телефона: ")
+    try:
+        # Вызов процедуры для добавления или обновления контакта
+        cur.callproc('add_or_update_contact', (name, phone))  # передаем параметры как кортеж
+        conn.commit()
+        print("Контакт добавлен или обновлен.")
+    except Exception as e:
+        conn.rollback()
+        print("Ошибка при добавлении или обновлении контакта:", e)
 
-        phone = input("Phone: ").strip()
-        if phone.lower() == 'stop':
-            break
-
-        names.append(name)
-        phones.append(phone)
-    cur.execute("SELECT * FROM insert_many_users(%s::text[], %s::text[]);", (names, phones))
-
-
-    invalids = cur.fetchall()
-
-    if invalids:
-        print("\nInvalid entries:")
-        for name, phone in invalids:
-            print(f"{name} — {phone}")
-    else:
-        print("\nAll entries were valid and inserted.")
 #importing
 def import_from_csv():
-    path = input("Show path to CSV:").strip() or "main.csv"
+    path = "main.csv"
     try:
         with open(path, newline='') as file:
             reader = csv.reader(file)
-            next(reader)  # Пропуск заголовка
+            next(reader)  #skil the name
             for row in reader:
                 try:
                     cur.execute("INSERT INTO phonebook (name, phone) VALUES (%s, %s)", (row[1], row[2]))
@@ -73,41 +57,28 @@ def import_from_csv():
 
 #updating
 def update_name():
-    old_name = input("Old name: ").strip()
-    new_name = input("New name: ").strip()
+    old_name = input("Old name: ")
+    new_name = input("New name: ")
     cur.execute("UPDATE phonebook SET name = %s WHERE name = %s", (new_name, old_name))
     conn.commit()
     print("Name updated")
 #update number
-def add_user_but_upd():
-    name = input("Name: ").strip()
-    phone = input("Phone: ").strip()
-
-    # If user already exist
-    cur.execute("SELECT * FROM phonebook WHERE name = %s", (name,))
-    result = cur.fetchone()
-
-    if result:
-        #new number
-        cur.execute("UPDATE phonebook SET phone = %s WHERE name = %s", (phone, name))
-        print(f"s new phone number for {name}.")
-    else:
-        #add novi chelovek
-        cur.execute("INSERT INTO phonebook (name, phone) VALUES (%s, %s)", (name, phone))
-        print(f"Added new contact: {name}.")
-
+def insert_or_update_user():
+    name = input()
+    phone = input()
+    cur.execute("CALL insert_or_update_user(%s, %s)", (name, phone))
     conn.commit()
 
 
-#finding by pattern
+# 1 task finding by pattern
 def search():
-    choice = input("Finding by name (1) or number (2)? ").strip()
+    choice = input("Finding by name (1) or number (2)? ")
 
     if choice == "1":
-        name = input("Select name: ").strip()
+        name = input("Select name: ")
         cur.execute("SELECT * FROM phonebook WHERE name ILIKE %s", (f"%{name}%",))
     elif choice == "2":
-        phone = input("Select number: ").strip()
+        phone = input("Select number: ")
         cur.execute("SELECT * FROM phonebook WHERE phone = %s", (phone,))
     else:
         print("Wrong choice")
@@ -121,46 +92,53 @@ def search():
     else:
         print("Nothing founded.")
 
-#deleting
-def delete():
-    choice = input("Delete by name (1) or number (2)?: ").strip()
-    if choice == "1":
-        name = input("Select name: ").strip()
-        cur.execute("DELETE FROM phonebook WHERE name = %s", (name,))
-    elif choice == "2":
-        phone = input("Select number: ").strip()
-        cur.execute("DELETE FROM phonebook WHERE phone = %s", (phone,))
-    else:
-        print("That's wrong ")
-        return
-    conn.commit()
-    print("Done")
+
+
+def ask_for_pagdata():
+    limit = input("limit- ")
+    offset = input("offset- ")
+
+    try:
+        limit = int(limit)
+        offset = int(offset)
+
+        cur.execute("SELECT * FROM phonebook ORDER BY id LIMIT %s OFFSET %s", (limit, offset))
+        rows = cur.fetchall()
+
+        if rows:
+            for row in rows:
+                print(row)
+        else:
+            print("there is nothing")
+
+    except ValueError:
+        print("Integers for limit and offset")
 
 #main meny
 def main():
     while True:
-        print("\nPhoneBook Menu:")
-        print("1. Add contact")
-        print("2. Import from CSV")
+        print("\n PhoneBook Menu:")
+        print("1. Find(1-task)")
+        print("9. Import from CSV")
         print("3. Update name")
         print("6. Update number")
-        print("4. Find")
-        print("5. Deleting")
-        print("0. Exit")
-        choice = input("Your choice:").strip()
+        print("10. Pagination(2-task)")
 
-        if choice == "1":
-            add_contact()
-        elif choice == "2":
+        print("0. Exit")
+        choice = input("Your choice:")
+        if choice == "2":
+            add_or_update_contact()
+        elif choice == "9":
             import_from_csv()
         elif choice == "3":
             update_name()
-        elif choice == "4":
+        elif choice == "1":
             search()
-        elif choice == "5":
-            delete()
+
         elif choice == "6":
-            add_user_but_upd()
+            insert_or_update_user()
+        elif choice == "10":
+            ask_for_pagdata()
         elif choice == "0":
             print("Goodbye")
             break
@@ -172,4 +150,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
 
